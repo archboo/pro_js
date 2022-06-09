@@ -6,22 +6,38 @@ const products = [
     { id: 3, title: 'Keyboard', price: 200 },
     { id: 4, title: 'Gamepad', price: 50 },
 ];
-//Функция для формирования верстки каждого товара
-//Добавить в выводе изображение
-const renderProduct = (title, price) => {
-    return `<div class="product-item">
-                <img class="product-item__img" src="./img/${title}.svg" alt="${title}">
-                <h3>${title}</h3>
-                <p>${price}</p>
-                <button class="buy-btn">Купить</button>
-            </div>`
-};
-const renderPage = list => {
-    const productsList = list.map(item => renderProduct(item.title, item.price));
-    console.log(productsList);
-    document.querySelector('.products').innerHTML = productsList.join(' ');
-    //мы выводим на страницу элементы массива, по умолчанию разделитель запятая 
-    //метод join позволяет заменить разделитель элементов массива
-};
 
-renderPage(products);
+class ProductsItem {
+    constructor({ title ='', price = 0}){
+        this.title = title;
+        this.price = price;
+    }
+    render() {
+        return `<div class="product-item">
+            <img class="product-item__img" src="./img/${this.title}.svg" alt="${this.title}">
+            <h3>${this.title}</h3>
+            <p>${this.price}</p>
+            <button class="buy-btn">Купить</button>
+        </div>`
+    }
+}
+
+class ProductsList {
+    constructor(list = []){
+        this.list = list
+    }
+    render() {
+        const productsList = this.list.map(item => {
+            const productItem = new ProductsItem(item); 
+            return productItem.render()}).join(' ');
+            // renderProduct(item.title, item.price));
+            document.querySelector('.products').innerHTML = productsList;
+    }
+    getSum(){
+        return this.list.reduce((sum, item) => sum + item.price,0);
+    }
+}
+
+const productsList = new ProductsList(products);
+productsList.render()
+console.log(productsList.getSum())
