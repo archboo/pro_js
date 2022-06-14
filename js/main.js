@@ -7,9 +7,23 @@ const products = [
     { id: 4, title: 'Gamepad', price: 50 },
 ];
 
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const PRODUCTS = `${API}/catalogData.json`;
+const BASKET = `${API}/getBasket.json`;
+
+function service(url, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    const loadHandler = () => {
+        callback(JSON.parse(xhr.response));
+    }
+    xhr.onload = loadHandler;
+    xhr.send();
+}
+
 class ProductsItem {
-    constructor({ title ='', price = 0}){
-        this.title = title;
+    constructor({ product_name, price = 0 }) {
+        this.title = product_name;
         this.price = price;
     }
     render() {
@@ -23,21 +37,39 @@ class ProductsItem {
 }
 
 class ProductsList {
-    constructor(list = []){
-        this.list = list
+    items = [];
+    fetchProducts(callback) {
+        service(PRODUCTS, (data) => {
+            this.items = data
+            callback()
+        });
     }
     render() {
-        const productsList = this.list.map(item => {
-            const productItem = new ProductsItem(item); 
-            return productItem.render()}).join(' ');
-            // renderProduct(item.title, item.price));
-            document.querySelector('.products').innerHTML = productsList;
+        const productsList = this.items.map(item => {
+            const productItem = new ProductsItem(item);
+            return productItem.render()
+        }).join(' ');
+        document.querySelector('.products').innerHTML = productsList;
     }
-    getSum(){
-        return this.list.reduce((sum, item) => sum + item.price,0);
+    getSum() {
+        return this.items.reduce((sum, item) => sum + item.price, 0);
     }
 }
 
-const productsList = new ProductsList(products);
-productsList.render()
-console.log(productsList.getSum())
+class BasketProducts {
+    items = [];
+    fetchData() {
+        service(BASKET, (data) => {
+            this.items = data
+        });
+    }
+}
+
+const productsList = new ProductsList();
+productsList.fetchProducts(() => {
+    productsList.render();
+});
+
+const basketProducts = new BasketProducts();
+basketProducts.fetchData();
+
