@@ -11,14 +11,16 @@ const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 const PRODUCTS = `${API}/catalogData.json`;
 const BASKET = `${API}/getBasket.json`;
 
-function service(url, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    const loadHandler = () => {
-        callback(JSON.parse(xhr.response));
-    }
-    xhr.onload = loadHandler;
-    xhr.send();
+function service(url) {
+    return new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        const loadHandler = () => {
+            resolve(JSON.parse(xhr.response));
+        }
+        xhr.onload = loadHandler;
+        xhr.send();
+    })
 }
 
 class ProductsItem {
@@ -38,14 +40,22 @@ class ProductsItem {
 
 class ProductsList {
     items = [];
+    filteredItems = [];
     fetchProducts(callback) {
-        service(PRODUCTS, (data) => {
-            this.items = data
+        const prom = service(PRODUCTS);
+        prom.then((data) => {
+            this.items = data;
+            this.filteredItems = data;
             callback()
         });
     }
+    filter(str) {
+        this.filteredItems = this.items.filter(({ product_name }) => {
+            return (new RegExp(str)).test(product_name);
+        })
+    }
     render() {
-        const productsList = this.items.map(item => {
+        const productsList = this.filteredItems.map(item => {
             const productItem = new ProductsItem(item);
             return productItem.render()
         }).join(' ');
@@ -73,3 +83,8 @@ productsList.fetchProducts(() => {
 const basketProducts = new BasketProducts();
 basketProducts.fetchData();
 
+document.getElementsByClassName('search-button')[0].addEventListener('click', () => {
+    const input = document.getElementsByClassName('products-search')[0];
+    productsList.filter(input.value)
+    productsList.render()
+})
