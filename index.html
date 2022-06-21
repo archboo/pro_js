@@ -7,20 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="js/main.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="wrp container">
-            <input type="text" class="products-search">
-            <button class="search-button" type="button">Поиск</button>
-            <button class="btn-cart" type="button">Корзина</button>
-        </div>
-    </header>
-    <main>
-        <div class="products container"></div>
-    </main>
-    <script src="js/main.js"></script>
+    <div id="root">
+        <header>
+            <div class="wrp container">
+                <input type="text" class="products-search" v-model="searchValue">
+                <button class="btn-cart" type="button" @click="clickOnBasket">Корзина</button>
+            </div>
+        </header>
+        <main class="main container">
+                <div class="basket_space" v-if="isVisibleCart">
+                    <div class="basket_space-content">
+                        <h3>Список товаров в корзине:</h1>
+                        <div>Товары(временно)</div>
+                    </div>
+                </div>
+            <div class="products container">
+                <div class="product-item" v-for="item in filteredItems">
+                    <h3>{{item.product_name}}</h3>
+                    <p>{{item.price}}</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 
 </html>

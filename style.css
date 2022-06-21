@@ -67,6 +67,25 @@ header {
     text-transform: uppercase;
 }
 
+.main {
+    position: relative;
+}
+
+.basket_space {
+    position: absolute;
+    right: 0px;
+    width: 400px;
+    height: 200px;
+    padding: 10px;
+    background-color: #3D3E40;
+}
+
+.basket-close {
+    width: 20px;
+    height: 20px;
+    background-color: #d6d6d6;
+}
+
 /* Color Theme Swatches in Hex */
 .MeltOne-Advisory-1-hex {
     color: #3D3E40;
