@@ -11,7 +11,7 @@ body {
 
 header {
     background-color: #3D3E40;
-    min-height: 50px;  
+    min-height: 50px;
 }
 
 .wrp {
@@ -19,12 +19,20 @@ header {
     justify-content: right;
 }
 
-.btn-cart {
+.btn-cart,
+.search-button,
+.products-search {
     margin-top: 10px;
     min-width: 130px;
     min-height: 30px;
     border: none;
     background-color: #d6d6d6;
+}
+
+.search-button,
+.products-search {
+    margin-right: 10px;
+    min-width: 90px;
 }
 
 .products {
@@ -59,23 +67,84 @@ header {
     text-transform: uppercase;
 }
 
+.main {
+    position: relative;
+}
+
+.basket_space {
+    position: absolute;
+    right: 0px;
+    width: 400px;
+    height: 200px;
+    padding: 10px;
+    background-color: #3D3E40;
+}
+
+.basket-close {
+    width: 20px;
+    height: 20px;
+    background-color: #d6d6d6;
+}
+
 /* Color Theme Swatches in Hex */
-.MeltOne-Advisory-1-hex { color: #3D3E40; }
-.MeltOne-Advisory-2-hex { color: #7794A6; }
-.MeltOne-Advisory-3-hex { color: #93B3BF; }
-.MeltOne-Advisory-4-hex { color: #F2BC8D; }
-.MeltOne-Advisory-5-hex { color: #F2F2F2; }
+.MeltOne-Advisory-1-hex {
+    color: #3D3E40;
+}
+
+.MeltOne-Advisory-2-hex {
+    color: #7794A6;
+}
+
+.MeltOne-Advisory-3-hex {
+    color: #93B3BF;
+}
+
+.MeltOne-Advisory-4-hex {
+    color: #F2BC8D;
+}
+
+.MeltOne-Advisory-5-hex {
+    color: #F2F2F2;
+}
 
 /* Color Theme Swatches in RGBA */
-.MeltOne-Advisory-1-rgba { color: rgba(61, 62, 63, 1); }
-.MeltOne-Advisory-2-rgba { color: rgba(119, 147, 165, 1); }
-.MeltOne-Advisory-3-rgba { color: rgba(147, 178, 191, 1); }
-.MeltOne-Advisory-4-rgba { color: rgba(242, 187, 140, 1); }
-.MeltOne-Advisory-5-rgba { color: rgba(242, 242, 242, 1); }
+.MeltOne-Advisory-1-rgba {
+    color: rgba(61, 62, 63, 1);
+}
+
+.MeltOne-Advisory-2-rgba {
+    color: rgba(119, 147, 165, 1);
+}
+
+.MeltOne-Advisory-3-rgba {
+    color: rgba(147, 178, 191, 1);
+}
+
+.MeltOne-Advisory-4-rgba {
+    color: rgba(242, 187, 140, 1);
+}
+
+.MeltOne-Advisory-5-rgba {
+    color: rgba(242, 242, 242, 1);
+}
 
 /* Color Theme Swatches in HSLA */
-.MeltOne-Advisory-1-hsla { color: hsla(213, 2, 24, 1); }
-.MeltOne-Advisory-2-hsla { color: hsla(202, 20, 55, 1); }
-.MeltOne-Advisory-3-hsla { color: hsla(196, 25, 66, 1); }
-.MeltOne-Advisory-4-hsla { color: hsla(28, 79, 75, 1); }
-.MeltOne-Advisory-5-hsla { color: hsla(0, 0, 95, 1); }
+.MeltOne-Advisory-1-hsla {
+    color: hsla(213, 2, 24, 1);
+}
+
+.MeltOne-Advisory-2-hsla {
+    color: hsla(202, 20, 55, 1);
+}
+
+.MeltOne-Advisory-3-hsla {
+    color: hsla(196, 25, 66, 1);
+}
+
+.MeltOne-Advisory-4-hsla {
+    color: hsla(28, 79, 75, 1);
+}
+
+.MeltOne-Advisory-5-hsla {
+    color: hsla(0, 0, 95, 1);
+}
