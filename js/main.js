@@ -9,6 +9,38 @@ function service(url) {
 }
 
 window.onload = () => {
+
+    Vue.component('product', {
+        props: [
+            'item'
+        ],
+        template: `
+            <div class="product-item"">
+                <h3>{{item.product_name}}</h3>
+                <p>{{item.price}}</p>
+                <button class="buy-btn">Купить</button>
+            </div>
+        `
+    })
+
+    Vue.component('basket', {
+        template: `
+            <div class="basket_space">
+                <div class="basket_space-content">
+                    <h3>Список товаров в корзине:</h3>
+                    <div>Товары(временно)</div>
+                </div>
+            </div>
+        `
+    })
+
+
+    Vue.component('search-input', {
+        template: `
+        <input @input="$emit('input', $event.target.value)" type="text" class="products-search">
+        `
+    })
+
     const app = new Vue({
         el: '#root',
         data: {

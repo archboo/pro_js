@@ -15,23 +15,14 @@
     <div id="root">
         <header>
             <div class="wrp container">
-                <input type="text" class="products-search" v-model="searchValue">
+                <search-input v-model="searchValue"></search-input>
                 <button class="btn-cart" type="button" @click="clickOnBasket">Корзина</button>
             </div>
         </header>
         <main class="main container">
-                <div class="basket_space" v-if="isVisibleCart">
-                    <div class="basket_space-content">
-                        <h3>Список товаров в корзине:</h1>
-                        <div>Товары(временно)</div>
-                    </div>
-                </div>
+            <basket v-if="isVisibleCart"></basket>
             <div class="products container">
-                <div class="product-item" v-for="item in filteredItems">
-                    <h3>{{item.product_name}}</h3>
-                    <p>{{item.price}}</p>
-                    <button class="buy-btn">Купить</button>
-                </div>
+                <product v-for="item in filteredItems" :item="item"></product>
             </div>
         </main>
     </div>
