@@ -1,8 +1,8 @@
 'use strict';
 
-const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-const PRODUCTS = `${API}/catalogData.json`;
-const BASKET = `${API}/getBasket.json`;
+const API = 'http://localhost:8000/';
+const PRODUCTS = `${API}products.json`;
+const BASKET = `${API}basket`;
 
 function service(url) {
     return fetch(url).then((res) => res.json())
@@ -24,16 +24,44 @@ window.onload = () => {
     })
 
     Vue.component('basket', {
+        data() {
+            return {
+                basketProductsItems: []
+            }
+        },
         template: `
             <div class="basket_space">
                 <div class="basket_space-content">
                     <h3>Список товаров в корзине:</h3>
-                    <div>Товары(временно)</div>
+                    <basket-item v-for="item in basketProductsItems" :item="item"></basket-item>
                 </div>
             </div>
-        `
+        `,
+        mounted() {
+            service(BASKET).then((basketProducts) => {
+                this.basketProductsItems = basketProducts;
+            })
+        }
     })
 
+    Vue.component('basket-item', {
+        props: [
+            'item'
+        ],
+        template: `
+            <div>
+              <div>
+                <span>{{item.product_name}}</span>
+                <span>({{item.price}}р.)</span>
+              </div>
+               <div>
+                 <span>{{item.count}}шт.</span>
+                 <button>+</button>
+                 <button>-</button>
+               </div>
+            </div>
+          `
+    })
 
     Vue.component('search-input', {
         template: `
